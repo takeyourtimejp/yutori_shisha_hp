@@ -4,25 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>yutori | shisha, drink, music</title>
+  <meta name="description" content="yutori - shisha, drink, music. a quiet place to breathe." />
   <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
-  <canvas id="smokeCanvas" aria-hidden="true"></canvas>
+  <canvas id="fluid" aria-hidden="true"></canvas>
 
   <header class="site-header">
-    <a href="#" class="logo">yutori</a>
+    <a class="logo" href="./">yutori</a>
 
-    <nav class="header-nav">
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="#concept">CONCEPT</a>
       <a href="#stores">STORES</a>
-      <a href="tel:0368262250" class="fixed-call">CALL</a>
+      <a class="call-fixed" href="tel:0368262250" aria-label="電話予約する">CALL</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero">
+    <section class="hero" id="top">
       <div class="hero-inner">
-        <p class="eyebrow">shisha lounge</p>
+        <p class="eyebrow">SHISHA LOUNGE</p>
         <h1>yutori</h1>
         <p class="lead">
           shisha, drink, music.<br />
@@ -30,35 +32,37 @@
         </p>
 
         <div class="hero-actions">
-          <a href="tel:0368262250" class="primary-btn">CALL TO RESERVE</a>
-          <a href="#stores" class="secondary-btn">VIEW STORES</a>
+          <a class="primary-btn" href="tel:0368262250">CALL TO RESERVE</a>
+          <a class="secondary-btn" href="#stores">VIEW STORES</a>
         </div>
       </div>
     </section>
 
-    <section class="concept">
+    <section class="concept" id="concept">
+      <p class="section-label">CONCEPT</p>
+
       <div class="concept-grid">
-        <article>
-          <div class="line-icon shisha-icon"></div>
+        <article class="concept-card">
+          <div class="line-icon shisha-icon" aria-hidden="true"></div>
           <h2>SHISHA</h2>
           <p>会話から好みに合わせて、静かに吸いやすい一台を。</p>
         </article>
 
-        <article>
-          <div class="line-icon drink-icon"></div>
+        <article class="concept-card">
+          <div class="line-icon drink-icon" aria-hidden="true"></div>
           <h2>DRINK</h2>
           <p>煙と一緒に楽しむ、ゆらぎのあるドリンク時間。</p>
         </article>
 
-        <article>
-          <div class="line-icon music-icon"></div>
+        <article class="concept-card">
+          <div class="line-icon music-icon" aria-hidden="true"></div>
           <h2>MUSIC</h2>
           <p>大きすぎない音、自然に流れる空気感。</p>
         </article>
       </div>
     </section>
 
-    <section id="stores" class="stores">
+    <section class="stores" id="stores">
       <p class="section-label">STORES</p>
 
       <div class="store-grid">
@@ -117,7 +121,7 @@
     </section>
   </main>
 
-  <footer>
+  <footer class="site-footer">
     <p>yutori</p>
   </footer>
 
