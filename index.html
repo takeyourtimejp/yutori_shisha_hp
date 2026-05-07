@@ -1,447 +1,181 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>yutori</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Smoke Cursor Effect</title>
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
+<style>
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#000;
+}
 
-    html,body{
-      background:#050505;
-      color:#fff;
-      font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
-      overflow-x:hidden;
-      scroll-behavior:smooth;
-    }
-
-    body{
-      position:relative;
-    }
-
-    canvas{
-      position:fixed;
-      inset:0;
-      width:100%;
-      height:100%;
-      pointer-events:none;
-      z-index:1;
-      opacity:.08;
-    }
-
-    .container{
-      position:relative;
-      z-index:2;
-    }
-
-    header{
-      position:fixed;
-      top:0;
-      left:0;
-      width:100%;
-      padding:24px 28px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      z-index:999;
-      backdrop-filter: blur(8px);
-    }
-
-    .logo{
-      font-size:18px;
-      letter-spacing:.25em;
-      font-weight:300;
-    }
-
-    .call-btn{
-      border:1px solid rgba(255,255,255,.25);
-      color:#fff;
-      text-decoration:none;
-      padding:12px 22px;
-      border-radius:999px;
-      font-size:12px;
-      letter-spacing:.18em;
-      transition:.3s ease;
-      background:rgba(255,255,255,.02);
-    }
-
-    .call-btn:hover{
-      background:rgba(255,255,255,.08);
-      border-color:rgba(255,255,255,.5);
-    }
-
-    .hero{
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-      padding:0 24px;
-    }
-
-    .hero h1{
-      font-size:clamp(64px,10vw,140px);
-      font-weight:200;
-      letter-spacing:.12em;
-      margin-bottom:20px;
-    }
-
-    .hero p{
-      color:rgba(255,255,255,.65);
-      font-size:15px;
-      line-height:2;
-      letter-spacing:.12em;
-      font-weight:300;
-    }
-
-    .icons{
-      margin-top:140px;
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:40px;
-      width:min(900px,90%);
-    }
-
-    .icon-card{
-      border:1px solid rgba(255,255,255,.08);
-      padding:50px 20px;
-      border-radius:24px;
-      background:rgba(255,255,255,.015);
-      transition:.4s ease;
-    }
-
-    .icon-card:hover{
-      transform:translateY(-6px);
-      border-color:rgba(255,255,255,.2);
-    }
-
-    .icon{
-      font-size:42px;
-      margin-bottom:20px;
-      opacity:.9;
-    }
-
-    .icon-title{
-      letter-spacing:.25em;
-      font-size:13px;
-      margin-bottom:12px;
-    }
-
-    .icon-desc{
-      color:rgba(255,255,255,.45);
-      font-size:13px;
-      line-height:1.9;
-    }
-
-    .stores{
-      padding:180px 24px;
-      width:min(1200px,92%);
-      margin:auto;
-    }
-
-    .section-title{
-      text-align:center;
-      margin-bottom:80px;
-      font-size:13px;
-      letter-spacing:.4em;
-      color:rgba(255,255,255,.45);
-    }
-
-    .store-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:24px;
-    }
-
-    .store-card{
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:28px;
-      padding:42px;
-      background:rgba(255,255,255,.015);
-      transition:.4s ease;
-    }
-
-    .store-card:hover{
-      border-color:rgba(255,255,255,.2);
-      transform:translateY(-8px);
-    }
-
-    .store-name{
-      font-size:26px;
-      letter-spacing:.14em;
-      margin-bottom:20px;
-      font-weight:200;
-    }
-
-    .store-info{
-      color:rgba(255,255,255,.5);
-      line-height:2;
-      font-size:14px;
-      margin-bottom:30px;
-    }
-
-    .store-links{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .store-links a{
-      text-decoration:none;
-      color:#fff;
-      border:1px solid rgba(255,255,255,.12);
-      padding:10px 16px;
-      border-radius:999px;
-      font-size:11px;
-      letter-spacing:.16em;
-      transition:.3s ease;
-    }
-
-    .store-links a:hover{
-      background:rgba(255,255,255,.08);
-    }
-
-    footer{
-      padding:120px 24px 60px;
-      text-align:center;
-      color:rgba(255,255,255,.28);
-      font-size:12px;
-      letter-spacing:.2em;
-    }
-
-    @media(max-width:768px){
-
-      .icons{
-        grid-template-columns:1fr;
-        margin-top:100px;
-      }
-
-      .hero h1{
-        font-size:72px;
-      }
-
-      header{
-        padding:18px;
-      }
-
-      .call-btn{
-        padding:10px 18px;
-        font-size:11px;
-      }
-
-      .store-card{
-        padding:34px;
-      }
-    }
-  </style>
+canvas{
+    width:100%;
+    height:100%;
+    display:block;
+}
+</style>
 </head>
 
 <body>
 
-<canvas id="smoke"></canvas>
-
-<div class="container">
-
-<header>
-  <div class="logo">yutori</div>
-
-  <a href="tel:0368262250" class="call-btn">
-    CALL
-  </a>
-</header>
-
-<section class="hero">
-
-  <h1>yutori</h1>
-
-  <p>
-    shisha, drink, music.<br>
-    a quiet place to breathe.
-  </p>
-
-  <div class="icons">
-
-    <div class="icon-card">
-      <div class="icon">〰</div>
-      <div class="icon-title">SHISHA</div>
-      <div class="icon-desc">
-        smooth smoke.<br>
-        quiet conversations.
-      </div>
-    </div>
-
-    <div class="icon-card">
-      <div class="icon">◜◝</div>
-      <div class="icon-title">DRINK</div>
-      <div class="icon-desc">
-        gentle waves.<br>
-        calm moments.
-      </div>
-    </div>
-
-    <div class="icon-card">
-      <div class="icon">⌇</div>
-      <div class="icon-title">MUSIC</div>
-      <div class="icon-desc">
-        ambient sounds.<br>
-        subtle rhythm.
-      </div>
-    </div>
-
-  </div>
-
-</section>
-
-<section class="stores">
-
-  <div class="section-title">
-    STORES
-  </div>
-
-  <div class="store-grid">
-
-    <div class="store-card">
-
-      <div class="store-name">
-        AKABANE
-      </div>
-
-      <div class="store-info">
-        JR Akabane Station<br>
-        5 min walk
-      </div>
-
-      <div class="store-links">
-        <a href="#">MAP</a>
-        <a href="tel:0345008879">CALL</a>
-        <a href="#">INSTAGRAM</a>
-      </div>
-
-    </div>
-
-    <div class="store-card">
-
-      <div class="store-name">
-        MEGURO
-      </div>
-
-      <div class="store-info">
-        Meguro Station<br>
-        Near Gajoen
-      </div>
-
-      <div class="store-links">
-        <a href="#">MAP</a>
-        <a href="tel:0368262250">CALL</a>
-        <a href="#">INSTAGRAM</a>
-      </div>
-
-    </div>
-
-    <div class="store-card">
-
-      <div class="store-name">
-        HAMAMATSUCHO
-      </div>
-
-      <div class="store-info">
-        Daimon Station A6<br>
-        1 min walk
-      </div>
-
-      <div class="store-links">
-        <a href="#">MAP</a>
-        <a href="#">CALL</a>
-        <a href="#">INSTAGRAM</a>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-<footer>
-  yutori
-</footer>
-
-</div>
+<canvas id="c"></canvas>
 
 <script>
-const canvas = document.getElementById('smoke');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById('c');
+const gl = canvas.getContext('webgl');
 
-let w = canvas.width = window.innerWidth;
-let h = canvas.height = window.innerHeight;
-
-const particles = [];
-
-window.addEventListener('resize',()=>{
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
-});
-
-document.addEventListener('mousemove',(e)=>{
-  for(let i=0;i<2;i++){
-    particles.push({
-      x:e.clientX,
-      y:e.clientY,
-      size:Math.random()*80+40,
-      alpha:0.06,
-      vx:(Math.random()-.5)*0.5,
-      vy:(Math.random()-.5)*0.5
-    });
-  }
-});
-
-document.addEventListener('touchmove',(e)=>{
-  const t=e.touches[0];
-
-  particles.push({
-    x:t.clientX,
-    y:t.clientY,
-    size:90,
-    alpha:0.05,
-    vx:(Math.random()-.5)*0.3,
-    vy:(Math.random()-.5)*0.3
-  });
-});
-
-function animate(){
-
-  ctx.clearRect(0,0,w,h);
-
-  for(let i=0;i<particles.length;i++){
-
-    const p = particles[i];
-
-    p.x += p.vx;
-    p.y += p.vy;
-
-    p.size += 0.25;
-    p.alpha -= 0.0008;
-
-    ctx.beginPath();
-    ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
-    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-    ctx.fill();
-
-    if(p.alpha <=0){
-      particles.splice(i,1);
-      i--;
-    }
-  }
-
-  requestAnimationFrame(animate);
+if (!gl) {
+    alert('WebGL not supported');
 }
 
-animate();
+resize();
+
+window.addEventListener('resize', resize);
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+}
+
+const vertexShaderSource = `
+attribute vec2 aPosition;
+varying vec2 vUv;
+
+void main () {
+    vUv = aPosition * 0.5 + 0.5;
+    gl_Position = vec4(aPosition, 0.0, 1.0);
+}
+`;
+
+const fragmentShaderSource = `
+precision highp float;
+
+uniform vec2 uResolution;
+uniform vec2 uMouse;
+uniform float uTime;
+
+varying vec2 vUv;
+
+float circle(vec2 uv, vec2 disc_center, float disc_radius, float border_size) {
+    uv -= disc_center;
+    uv *= uResolution / min(uResolution.x, uResolution.y);
+    float dist = sqrt(dot(uv, uv));
+    return smoothstep(disc_radius + border_size, disc_radius - border_size, dist);
+}
+
+float random(vec2 st) {
+    return fract(sin(dot(st.xy,
+         vec2(12.9898,78.233)))*
+        43758.5453123);
+}
+
+void main() {
+
+    vec2 uv = vUv;
+
+    vec2 mouse = uMouse / uResolution;
+
+    float c = circle(uv, mouse, 0.15, 0.4);
+
+    float noise = random(uv + uTime * 0.01);
+
+    float smoke = c * noise;
+
+    vec3 color = vec3(smoke);
+
+    gl_FragColor = vec4(color, smoke);
+}
+`;
+
+function createShader(type, source) {
+    const shader = gl.createShader(type);
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        console.error(gl.getShaderInfoLog(shader));
+    }
+
+    return shader;
+}
+
+const vertexShader = createShader(gl.VERTEX_SHADER, vertexShaderSource);
+const fragmentShader = createShader(gl.FRAGMENT_SHADER, fragmentShaderSource);
+
+const program = gl.createProgram();
+
+gl.attachShader(program, vertexShader);
+gl.attachShader(program, fragmentShader);
+
+gl.linkProgram(program);
+
+gl.useProgram(program);
+
+const vertices = new Float32Array([
+    -1,-1,
+     1,-1,
+    -1, 1,
+    -1, 1,
+     1,-1,
+     1, 1
+]);
+
+const buffer = gl.createBuffer();
+
+gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+const aPosition = gl.getAttribLocation(program, 'aPosition');
+
+gl.enableVertexAttribArray(aPosition);
+
+gl.vertexAttribPointer(
+    aPosition,
+    2,
+    gl.FLOAT,
+    false,
+    0,
+    0
+);
+
+const uResolution = gl.getUniformLocation(program, 'uResolution');
+const uMouse = gl.getUniformLocation(program, 'uMouse');
+const uTime = gl.getUniformLocation(program, 'uTime');
+
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+
+window.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = window.innerHeight - e.clientY;
+});
+
+window.addEventListener('touchmove', e => {
+    const t = e.touches[0];
+    mouseX = t.clientX;
+    mouseY = window.innerHeight - t.clientY;
+});
+
+function render(time) {
+
+    gl.uniform2f(uResolution, canvas.width, canvas.height);
+    gl.uniform2f(uMouse, mouseX, mouseY);
+    gl.uniform1f(uTime, time * 0.001);
+
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+    requestAnimationFrame(render);
+}
+
+requestAnimationFrame(render);
+
 </script>
 
 </body>
