@@ -1,182 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Smoke Cursor Effect</title>
-
-<style>
-html,body{
-    margin:0;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:#000;
-}
-
-canvas{
-    width:100%;
-    height:100%;
-    display:block;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yutori | shisha, drink, music</title>
+  <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
+  <canvas id="smokeCanvas" aria-hidden="true"></canvas>
 
-<canvas id="c"></canvas>
+  <header class="site-header">
+    <a href="#" class="logo">yutori</a>
 
-<script>
-const canvas = document.getElementById('c');
-const gl = canvas.getContext('webgl');
+    <nav class="header-nav">
+      <a href="#stores">STORES</a>
+      <a href="tel:0368262250" class="fixed-call">CALL</a>
+    </nav>
+  </header>
 
-if (!gl) {
-    alert('WebGL not supported');
-}
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">shisha lounge</p>
+        <h1>yutori</h1>
+        <p class="lead">
+          shisha, drink, music.<br />
+          a quiet place to breathe.
+        </p>
 
-resize();
+        <div class="hero-actions">
+          <a href="tel:0368262250" class="primary-btn">CALL TO RESERVE</a>
+          <a href="#stores" class="secondary-btn">VIEW STORES</a>
+        </div>
+      </div>
+    </section>
 
-window.addEventListener('resize', resize);
+    <section class="concept">
+      <div class="concept-grid">
+        <article>
+          <div class="line-icon shisha-icon"></div>
+          <h2>SHISHA</h2>
+          <p>会話から好みに合わせて、静かに吸いやすい一台を。</p>
+        </article>
 
-function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-}
+        <article>
+          <div class="line-icon drink-icon"></div>
+          <h2>DRINK</h2>
+          <p>煙と一緒に楽しむ、ゆらぎのあるドリンク時間。</p>
+        </article>
 
-const vertexShaderSource = `
-attribute vec2 aPosition;
-varying vec2 vUv;
+        <article>
+          <div class="line-icon music-icon"></div>
+          <h2>MUSIC</h2>
+          <p>大きすぎない音、自然に流れる空気感。</p>
+        </article>
+      </div>
+    </section>
 
-void main () {
-    vUv = aPosition * 0.5 + 0.5;
-    gl_Position = vec4(aPosition, 0.0, 1.0);
-}
-`;
+    <section id="stores" class="stores">
+      <p class="section-label">STORES</p>
 
-const fragmentShaderSource = `
-precision highp float;
+      <div class="store-grid">
+        <article class="store-card">
+          <p class="store-kana">赤羽</p>
+          <h3>AKABANE</h3>
+          <p class="store-copy">
+            JR赤羽駅から徒歩約5分。<br />
+            東京都北区赤羽1-41-6<br />
+            サクセスプラザ犬飼 7F
+          </p>
+          <p class="store-tel">03-4500-8879</p>
 
-uniform vec2 uResolution;
-uniform vec2 uMouse;
-uniform float uTime;
+          <div class="store-actions">
+            <a href="https://www.google.com/maps/search/?api=1&query=東京都北区赤羽1-41-6 サクセスプラザ犬飼 7F" target="_blank" rel="noopener">MAP</a>
+            <a href="tel:0345008879">CALL</a>
+            <a href="#" target="_blank" rel="noopener">INSTAGRAM</a>
+          </div>
+        </article>
 
-varying vec2 vUv;
+        <article class="store-card">
+          <p class="store-kana">目黒</p>
+          <h3>MEGURO</h3>
+          <p class="store-copy">
+            目黒駅正面口 徒歩3分。<br />
+            雅叙園 徒歩30秒。<br />
+            東京都目黒区下目黒1-4-7<br />
+            グリーンハイツ行人坂 B1F
+          </p>
+          <p class="store-tel">03-6826-2250</p>
 
-float circle(vec2 uv, vec2 disc_center, float disc_radius, float border_size) {
-    uv -= disc_center;
-    uv *= uResolution / min(uResolution.x, uResolution.y);
-    float dist = sqrt(dot(uv, uv));
-    return smoothstep(disc_radius + border_size, disc_radius - border_size, dist);
-}
+          <div class="store-actions">
+            <a href="https://www.google.com/maps/search/?api=1&query=東京都目黒区下目黒1-4-7 グリーンハイツ行人坂 B1F" target="_blank" rel="noopener">MAP</a>
+            <a href="tel:0368262250">CALL</a>
+            <a href="https://www.instagram.com/meguro_yutori/" target="_blank" rel="noopener">INSTAGRAM</a>
+          </div>
+        </article>
 
-float random(vec2 st) {
-    return fract(sin(dot(st.xy,
-         vec2(12.9898,78.233)))*
-        43758.5453123);
-}
+        <article class="store-card">
+          <p class="store-kana">浜松町</p>
+          <h3>HAMAMATSUCHO</h3>
+          <p class="store-copy">
+            大門駅 A1出口 徒歩1分。<br />
+            浜松町駅 徒歩5分。<br />
+            芝大門エリア。
+          </p>
+          <p class="store-tel">03-6820-7092</p>
 
-void main() {
+          <div class="store-actions">
+            <a href="https://www.google.com/maps/search/?api=1&query=浜松町 シーシャ yutori" target="_blank" rel="noopener">MAP</a>
+            <a href="tel:0368207092">CALL</a>
+            <a href="https://x.com/hmmtc_yutori" target="_blank" rel="noopener">SNS</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
 
-    vec2 uv = vUv;
+  <footer>
+    <p>yutori</p>
+  </footer>
 
-    vec2 mouse = uMouse / uResolution;
-
-    float c = circle(uv, mouse, 0.15, 0.4);
-
-    float noise = random(uv + uTime * 0.01);
-
-    float smoke = c * noise;
-
-    vec3 color = vec3(smoke);
-
-    gl_FragColor = vec4(color, smoke);
-}
-`;
-
-function createShader(type, source) {
-    const shader = gl.createShader(type);
-    gl.shaderSource(shader, source);
-    gl.compileShader(shader);
-
-    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        console.error(gl.getShaderInfoLog(shader));
-    }
-
-    return shader;
-}
-
-const vertexShader = createShader(gl.VERTEX_SHADER, vertexShaderSource);
-const fragmentShader = createShader(gl.FRAGMENT_SHADER, fragmentShaderSource);
-
-const program = gl.createProgram();
-
-gl.attachShader(program, vertexShader);
-gl.attachShader(program, fragmentShader);
-
-gl.linkProgram(program);
-
-gl.useProgram(program);
-
-const vertices = new Float32Array([
-    -1,-1,
-     1,-1,
-    -1, 1,
-    -1, 1,
-     1,-1,
-     1, 1
-]);
-
-const buffer = gl.createBuffer();
-
-gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
-
-const aPosition = gl.getAttribLocation(program, 'aPosition');
-
-gl.enableVertexAttribArray(aPosition);
-
-gl.vertexAttribPointer(
-    aPosition,
-    2,
-    gl.FLOAT,
-    false,
-    0,
-    0
-);
-
-const uResolution = gl.getUniformLocation(program, 'uResolution');
-const uMouse = gl.getUniformLocation(program, 'uMouse');
-const uTime = gl.getUniformLocation(program, 'uTime');
-
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
-
-window.addEventListener('mousemove', e => {
-    mouseX = e.clientX;
-    mouseY = window.innerHeight - e.clientY;
-});
-
-window.addEventListener('touchmove', e => {
-    const t = e.touches[0];
-    mouseX = t.clientX;
-    mouseY = window.innerHeight - t.clientY;
-});
-
-function render(time) {
-
-    gl.uniform2f(uResolution, canvas.width, canvas.height);
-    gl.uniform2f(uMouse, mouseX, mouseY);
-    gl.uniform1f(uTime, time * 0.001);
-
-    gl.drawArrays(gl.TRIANGLES, 0, 6);
-
-    requestAnimationFrame(render);
-}
-
-requestAnimationFrame(render);
-
-</script>
-
+  <script src="./smoke.js"></script>
 </body>
 </html>
