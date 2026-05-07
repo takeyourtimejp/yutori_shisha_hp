@@ -6,23 +6,25 @@
 
 html {
   scroll-behavior: smooth;
+  background: #030303;
 }
 
 body {
+  min-height: 100vh;
   background: #030303;
   color: #fff;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Noto Sans JP", sans-serif;
   overflow-x: hidden;
 }
 
-#smokeCanvas {
+#fluid {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
   z-index: 0;
+  width: 100dvw;
+  height: 100dvh;
   pointer-events: none;
-  opacity: 0.9;
+  background: #030303;
 }
 
 body::before {
@@ -32,8 +34,8 @@ body::before {
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 45%, rgba(255,255,255,0.035), transparent 34%),
-    linear-gradient(to bottom, rgba(0,0,0,0.15), #030303 82%);
+    radial-gradient(circle at 50% 40%, rgba(255,255,255,0.032), transparent 34%),
+    linear-gradient(to bottom, rgba(0,0,0,0.08), #030303 90%);
 }
 
 .site-header {
@@ -44,54 +46,60 @@ body::before {
   width: 100%;
   padding: 22px 28px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  mix-blend-mode: normal;
 }
 
 .logo {
   color: #fff;
   text-decoration: none;
   font-size: 17px;
-  letter-spacing: 0.32em;
   font-weight: 300;
+  letter-spacing: 0.32em;
 }
 
-.header-nav {
+.site-nav {
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
-.header-nav a {
+.site-nav a {
   color: rgba(255,255,255,0.72);
   text-decoration: none;
   font-size: 11px;
   letter-spacing: 0.22em;
 }
 
-.fixed-call {
+.call-fixed {
   color: #fff !important;
-  border: 1px solid rgba(255,255,255,0.32);
+  border: 1px solid rgba(255,255,255,0.34);
   padding: 12px 22px;
   border-radius: 999px;
-  background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.045);
+  backdrop-filter: blur(14px);
 }
 
+main,
 .hero,
 .concept,
 .stores,
-footer {
+.site-footer {
   position: relative;
   z-index: 5;
 }
 
 .hero {
   min-height: 100svh;
+  padding: 120px 24px 80px;
   display: grid;
   place-items: center;
-  padding: 120px 24px 80px;
   text-align: center;
+}
+
+.hero-inner {
+  width: min(900px, 92vw);
 }
 
 .eyebrow,
@@ -138,16 +146,23 @@ footer {
 
 .primary-btn {
   color: #050505;
-  background: rgba(255,255,255,0.88);
+  background: rgba(255,255,255,0.9);
 }
 
 .secondary-btn {
   color: #fff;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.015);
 }
 
 .concept {
   padding: 80px 24px 140px;
+}
+
+.concept .section-label,
+.stores .section-label {
+  text-align: center;
+  margin-bottom: 52px;
 }
 
 .concept-grid {
@@ -158,7 +173,7 @@ footer {
   gap: 22px;
 }
 
-.concept article,
+.concept-card,
 .store-card {
   border: 1px solid rgba(255,255,255,0.09);
   background: rgba(255,255,255,0.018);
@@ -166,7 +181,7 @@ footer {
   border-radius: 28px;
 }
 
-.concept article {
+.concept-card {
   padding: 46px 28px;
   text-align: center;
 }
@@ -240,14 +255,14 @@ footer {
   color: rgba(255,255,255,0.82);
 }
 
-.concept h2 {
+.concept-card h2 {
   font-size: 13px;
   letter-spacing: 0.32em;
   font-weight: 400;
   margin-bottom: 14px;
 }
 
-.concept p {
+.concept-card p {
   color: rgba(255,255,255,0.48);
   font-size: 13px;
   line-height: 1.9;
@@ -257,11 +272,6 @@ footer {
   width: min(1160px, 92vw);
   margin: 0 auto;
   padding: 40px 0 150px;
-}
-
-.section-label {
-  text-align: center;
-  margin-bottom: 52px;
 }
 
 .store-grid {
@@ -317,9 +327,10 @@ footer {
   padding: 10px 15px;
   font-size: 10px;
   letter-spacing: 0.18em;
+  background: rgba(255,255,255,0.02);
 }
 
-footer {
+.site-footer {
   padding: 80px 24px;
   text-align: center;
   color: rgba(255,255,255,0.28);
@@ -331,11 +342,11 @@ footer {
     padding: 18px;
   }
 
-  .header-nav a:first-child {
+  .site-nav a:not(.call-fixed) {
     display: none;
   }
 
-  .fixed-call {
+  .call-fixed {
     padding: 11px 18px;
   }
 
